@@ -1,0 +1,67 @@
+@(form: Form[Application.Login])
+
+@main {
+    <div class="span-5">
+        <p>Valid username/passwords are:</p>
+        <ul>
+            <li>keith/melbourne</li>
+            <li>erwin/leuven</li>
+            <li>jeremy/atlanta</li>
+            <li>scott/rochester</li>
+        </ul>
+    </div>
+
+    <div class="span-10 append-2 last">
+        @if(form.hasErrors) {
+            <div class="error">
+                Your login attempt was not successful, try again.<br /><br />
+                Reason: @form.globalError.message
+            </div>
+        }
+        @helper.form(routes.Application.authenticate) {
+        <fieldset>
+            <legend>Login Information</legend>
+            <p>
+                @helper.inputText(
+                    field = form("username"),
+                    '_label->"User:"
+                )
+                <script type="text/javascript">
+                    Spring.addDecoration(new Spring.ElementDecoration({
+                    elementId : "username",
+                    widgetType : "dijit.form.ValidationTextBox",
+                    widgetAttrs : { promptMessage : "Your username", required : true }}));
+                </script>
+            </p>
+            <p>
+                @helper.inputPassword(
+                    field = form("password"),
+                    '_label->"Password:"
+                )
+                <script type="text/javascript">
+                    Spring.addDecoration(new Spring.ElementDecoration({
+                    elementId : "password",
+                    widgetType : "dijit.form.ValidationTextBox",
+                    widgetAttrs : { promptMessage : "Your password", required : true}}));
+                </script>
+            </p>
+            <p>
+                <input type="checkbox" name="_spring_security_remember_me" id="remember_me" />
+                <label for="remember_me">Don't ask for my password for two weeks:</label>
+                <script type="text/javascript">
+                    Spring.addDecoration(new Spring.ElementDecoration({
+                    elementId : "remember_me",
+                    widgetType : "dijit.form.CheckBox"}));
+                </script>
+            </p>
+            <p>
+                <button id="submit" type="submit">Login</button>
+                <script type="text/javascript">
+                    Spring.addDecoration(new Spring.ValidateAllDecoration({event : 'onclick', elementId : 'submit'}));
+                </script>
+            </p>
+        </fieldset>
+        }
+    </div>
+
+}

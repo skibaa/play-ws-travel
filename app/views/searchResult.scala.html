@@ -1,0 +1,62 @@
+@(hotels:List[Hotel], searchCriteria:SearchCriteria)
+
+@main {
+
+
+    <div id="hotelResults">
+        @if(hotels.nonEmpty) {
+            <table class="summary">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>City, State</th>
+                        <th>Zip</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for(hotel <- hotels) {
+                        <tr>
+                            <td>@hotel.getName</td>
+                            <td>@hotel.getAddress</td>
+                            <td>@hotel.getCity, @hotel.getState, @hotel.getCountry</td>
+                            <td>@hotel.getZip</td>
+                            <td><a href="hotels/@hotel.getId">View Hotel</a></td>
+                        </tr>
+                    }
+        } else {
+                        <tr>
+                            <td colspan="5">No hotels found</td>
+                        </tr>
+        }
+                </tbody>
+            </table>
+            <div class="buttonGroup">
+                <div class="span-3">
+                    @if(searchCriteria.getPage > 0) {
+                        <a id="prevResultsLink" href="hotels?searchString=@(searchCriteria.getSearchString)&pageSize=@(searchCriteria.getPageSize)&page=@(searchCriteria.getPage - 1)">Previous Results</a>
+                        <script type="text/javascript">
+                            Spring.addDecoration(new Spring.AjaxEventDecoration({
+                            elementId: "prevResultsLink",
+                            event: "onclick",
+                            params: {fragments: "body"}
+                            }));
+                        </script>
+                    }
+                </div>
+                <div class="span-3 append-12 last">
+                    @if(hotels.nonEmpty && hotels.length == searchCriteria.getPageSize) {
+                        <a id="moreResultsLink" href="hotels?searchString=@(searchCriteria.getSearchString)&pageSize=@(searchCriteria.getPageSize)&page=@(searchCriteria.getPage + 1)">More Results</a>
+                        <script type="text/javascript">
+                            Spring.addDecoration(new Spring.AjaxEventDecoration({
+                            elementId: "moreResultsLink",
+                            event: "onclick",
+                            params: {fragments: "body"}
+                            }));
+                        </script>
+                    }
+                </div>
+            </div>
+    </div>
+}

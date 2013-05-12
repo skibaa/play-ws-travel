@@ -1,0 +1,68 @@
+@(body: Html)
+@import play.api.Play
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Spring Travel: Spring MVC and Web Flow Reference Application</title>
+        <link type="text/css" rel="stylesheet" href="@routes.Assets.at("javascripts/dijit/themes/tundra/tundra.css")" />
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/blueprint/screen.css")" type="text/css" media="screen, projection" />
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/blueprint/print.css")" type="text/css" media="print" />
+        <!--[if lt IE 8]>
+	        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/blueprint/ie.css")" type="text/css" media="screen, projection" />
+	    <![endif]-->
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/travel.css")" type="text/css" media="screen" />
+        <script type="text/javascript" src="@routes.Assets.at("javascripts//dojo/dojo.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts//spring/Spring.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/spring/Spring-Dojo.js")"></script>
+    </head>
+    <body class="tundra">
+        <div id="page" class="container">
+            <div id="header">
+                <div id="topbar">
+                    <p>
+                        @defining(session.get("username")) {username =>
+                            @if(username==null) {
+                                <a href="@routes.Application.login">Login</a>
+                            } else {
+                                <strong>Welcome, @username | </strong>
+                                <a href="@routes.Application.logout">Logout</a>
+                            }
+                        }
+                    </p>
+                </div>
+                <div id="logo">
+                    <p>
+                        <a href="@routes.Application.index()">
+                        <img src="@routes.Assets.at("images/header.jpg")" alt="Spring Travel" />
+                        </a>
+                    </p>
+                </div>
+            </div>
+            <div id="content">
+                <div id="local" class="span-6">
+                    <p>
+                        <a href="http://www.thespringexperience.com">
+                            <img src="@routes.Assets.at("images/diplomat.jpg")" alt="generic hotel" />
+                        </a>
+                    </p>
+                    <p>
+                        <a href="http://www.thespringexperience.com">
+                            <img src="@routes.Assets.at("images/springone2gx.jpeg")" alt="SpringOne 2GX" />
+                        </a>
+                    </p>
+                </div>
+                <div id="main" class="span-18 last">
+                    @body
+                </div>
+            </div>
+            <hr />
+            <div id="footer">
+                <a href="http://www.springframework.org">
+                    <img src="@routes.Assets.at("images/powered-by-spring.png")" alt="Powered by Spring" />
+                </a>
+            </div>
+        </div>
+    </body>
+</html>
